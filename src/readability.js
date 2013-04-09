@@ -95,7 +95,11 @@ function read(html, options, callback) {
       html: body,
       done: function (errors, window) {
         if (errors) return callback(errors);
-        callback(null, new Readability(window.document, options));
+        if(!window || !window.document || !window.document.body) {
+            callback('window.document.body is null');
+        } else {
+            callback(null, new Readability(window.document, options));
+        }
       }
     });
   }
